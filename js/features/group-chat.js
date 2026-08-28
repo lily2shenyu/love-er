@@ -357,9 +357,8 @@ if (exportAllBtn) {
     }
 if (importAllBtn) {
         importAllBtn.addEventListener('click', function() {
-            var input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json,.zip,application/json,application/zip';
+            var input = document.getElementById('er-global-file-input');
+            if (!input) return;
             input.onchange = async function(e) {
                 var file = e.target.files[0];
                 if (!file) return;
@@ -396,9 +395,8 @@ if (importAllBtn) {
                     console.error('导入报错:', err);
                 }
             };
-            document.body.appendChild(input);
+            input.value = '';
             input.click();
-            document.body.removeChild(input);
         });
     }
 });
