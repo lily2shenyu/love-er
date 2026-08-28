@@ -254,7 +254,15 @@
 
     function syncToggles() {
         var n = document.getElementById('notif-permission-toggle');
-        if (n) n.checked = localStorage.getItem('notifEnabled') === '1'
+        if (!n) return;
+        if (window.AndroidBridge && typeof window.AndroidBridge.notify === 'function') {
+            if (localStorage.getItem('notifEnabled') === null) {
+                localStorage.setItem('notifEnabled', '1');
+            }
+            n.checked = localStorage.getItem('notifEnabled') === '1';
+            return;
+        }
+        n.checked = localStorage.getItem('notifEnabled') === '1'
                         && 'Notification' in window
                         && Notification.permission === 'granted';
     }
@@ -501,7 +509,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 window._sendPartnerNotification = function(title, body) {
     try {
-        if (localStorage.getItem('notifEnabled') !== '1') return;
+        var notifOn = localStorage.getItem('notifEnabled');
+        if (notifOn === null) notifOn = '1';
+        if (notifOn !== '1') return;
+        if (window.AndroidBridge && typeof window.AndroidBridge.notify === 'function') {
+            if (!document.hidden) return;
+            window.AndroidBridge.notify(title || '传讯', body || '对方发来了消息');
+            return;
+        }
         if (!('Notification' in window)) return;
         if (Notification.permission !== 'granted') return;
         if (!document.hidden) return;
@@ -516,6 +531,17 @@ window._sendPartnerNotification = function(title, body) {
 
 window.handleNotifToggle = function(checkbox) {
     var statusEl = document.getElementById('notif-status-text');
+    if (window.AndroidBridge && typeof window.AndroidBridge.notify === 'function') {
+        if (checkbox.checked) {
+            localStorage.setItem('notifEnabled', '1');
+            if (statusEl) statusEl.textContent = '✅ 已开启 — 当页面在后台时，收到消息会弹出系统通知';
+            try { window.AndroidBridge.notify('传讯通知已开启 ✨', '你现在可以在后台收到消息提醒了'); } catch(e) {}
+        } else {
+            localStorage.setItem('notifEnabled', '0');
+            if (statusEl) statusEl.textContent = '关闭状态 — 开启后可在后台接收消息提醒';
+        }
+        return;
+    }
     if (!('Notification' in window)) {
         checkbox.checked = false;
         if (statusEl) statusEl.textContent = '⚠️ 您的浏览器不支持通知功能，请更换浏览器';
@@ -552,7 +578,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var statusEl = document.getElementById('notif-status-text');
     if (!toggle) return;
     var enabled = localStorage.getItem('notifEnabled') === '1';
-    var granted = ('Notification' in window) && Notification.permission === 'granted';
+    var granted = (window.AndroidBridge && typeof window.AndroidBridge.notify === 'function') || (('Notification' in window) && Notification.permission === 'granted');
     toggle.checked = enabled && granted;
     if (!statusEl) return;
     if (toggle.checked) {
