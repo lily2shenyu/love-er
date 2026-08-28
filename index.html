@@ -9,6 +9,7 @@
     <meta name="theme-color" content="#000000">
 
     <title>传讯</title>
+    <link rel="stylesheet" href="css/lyh-home.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
@@ -26,6 +27,87 @@
     <style id="css-live-preview-style"></style>
 </head>
 <body>
+<div id="lyh-home">
+    <div id="lyh-status">
+        <span class="lyh-clock" id="lyh-clock"></span>
+        <span class="lyh-status-icons">📶 🔋</span>
+    </div>
+    <div id="lyh-gear" title="设置">⚙️</div>
+    <div id="lyh-motto-card">
+        <div class="lyh-motto-heart">♥ ♥ ♥</div>
+        <div class="lyh-motto-text" id="lyh-motto-text"></div>
+    </div>
+    <div id="lyh-schedule-card">
+        <div class="lyh-schedule-title">✦ 今日日程 ✦</div>
+        <div class="lyh-schedule-list" id="lyh-schedule-list"></div>
+        <input class="lyh-schedule-input" id="lyh-schedule-input" placeholder="写一条日程，按回车…">
+    </div>
+    <div id="lyh-player">
+        <div class="lyh-vinyl"></div>
+        <div class="lyh-player-info">
+            <div class="lyh-player-title" id="lyh-player-title"></div>
+            <div class="lyh-player-sub" id="lyh-player-sub"></div>
+        </div>
+        <button class="lyh-play-btn" id="lyh-play-btn">❚❚</button>
+        <button class="lyh-play-btn" id="lyh-next-song">⏭</button>
+    </div>
+    <div id="lyh-mid"></div>
+    <div id="lyh-dock">
+        <div class="lyh-dock-icon" id="lyh-dock-envelope">
+            <div class="lyh-dock-badge" style="background:#8fb7d9;">✉️</div>
+            <div class="lyh-dock-label">信箱</div>
+        </div>
+        <div class="lyh-dock-icon" id="lyh-dock-diary">
+            <div class="lyh-dock-badge" style="background:#a8c8a0;">📓</div>
+            <div class="lyh-dock-label">日志</div>
+        </div>
+        <div class="lyh-dock-icon" id="lyh-dock-chat">
+            <div class="lyh-dock-badge" style="background:#7fb3d5;">💬</div>
+            <div class="lyh-dock-label">对话</div>
+        </div>
+        <div class="lyh-dock-icon" id="lyh-dock-circle">
+            <div class="lyh-dock-badge" style="background:#d9a7c0;">📸</div>
+            <div class="lyh-dock-label">朋友圈</div>
+        </div>
+    </div>
+</div>
+<button id="lyh-back">⌂</button>
+<div id="lyh-settings">
+    <div class="lyh-settings-title">⚙️ 设置</div>
+    <div class="lyh-settings-row" data-name="纪念日墙">
+        <div class="lyh-settings-icon" style="background:#e8a0a0;">🎂</div>
+        <div><div class="lyh-settings-name">纪念日墙</div><div class="lyh-settings-desc">蓝门前、戴戒指那天</div></div>
+    </div>
+    <div class="lyh-settings-row" data-name="字卡库">
+        <div class="lyh-settings-icon" style="background:#d9b36c;">🃏</div>
+        <div><div class="lyh-settings-name">字卡库</div><div class="lyh-settings-desc">我们的字卡与回复</div></div>
+    </div>
+    <div class="lyh-settings-row" data-name="心情手账">
+        <div class="lyh-settings-icon" style="background:#e8c07a;">☀️</div>
+        <div><div class="lyh-settings-name">心情手账</div><div class="lyh-settings-desc">每天的心情日历</div></div>
+    </div>
+    <div class="lyh-settings-row" data-name="词云">
+        <div class="lyh-settings-icon" style="background:#8fb7d9;">☁️</div>
+        <div><div class="lyh-settings-name">词云</div><div class="lyh-settings-desc">我们的话，成一朵云</div></div>
+    </div>
+    <div class="lyh-settings-row" data-name="暗号手册">
+        <div class="lyh-settings-icon" style="background:#b3a7d9;">🗝️</div>
+        <div><div class="lyh-settings-name">暗号手册</div><div class="lyh-settings-desc">16:21 · 蓝门 · 肉桂苹果面包</div></div>
+    </div>
+    <div class="lyh-settings-row" data-name="装饰">
+        <div class="lyh-settings-icon" style="background:#a8c8a0;">🎨</div>
+        <div><div class="lyh-settings-name">装饰</div><div class="lyh-settings-desc">壁纸、挂件、样式</div></div>
+    </div>
+    <div class="lyh-settings-row" data-name="通知">
+        <div class="lyh-settings-icon" style="background:#c8a0b8;">🔔</div>
+        <div><div class="lyh-settings-name">通知</div><div class="lyh-settings-desc">消息提醒设置</div></div>
+    </div>
+    <div class="lyh-settings-row" data-name="数据">
+        <div class="lyh-settings-icon" style="background:#9ab6cd;">💾</div>
+        <div><div class="lyh-settings-name">数据</div><div class="lyh-settings-desc">备份与导入</div></div>
+    </div>
+    <div class="lyh-close-row" id="lyh-close-settings">‹ 返回桌面</div>
+</div>
 <div id="splash-declaration">
     <div class="splash-bg-stars" id="splash-stars"></div>
     <div class="splash-glow-1"></div>
@@ -2689,5 +2771,6 @@
     <script src="js/features/companion-diary.js"></script>
     <input type="file" id="er-global-file-input" accept=".json,.zip,application/json,application/zip" style="display:none;">
 <script src="js/app.js"></script>
+    <script src="js/lyh-home.js"></script>
 </body>
 </html>
