@@ -11622,3 +11622,21 @@ body #user-sticker-picker .empty-sticker-tip {
     cursor: not-allowed;
     pointer-events: none;
 }
+/* ===== 栗屿海 · IB同款邮票（右上角齿孔邮票） ===== */
+.env-letter-item::after {
+  content: 'INTERNAL BEYOND POST · 邮';
+  position: absolute; top: 10px; right: 12px; z-index: 3;
+  width: 46px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  background:
+    linear-gradient(45deg, rgba(206,224,248,0.6) 25%, transparent 25%) 0 0/6px 6px,
+    linear-gradient(-45deg, rgba(206,224,248,0.6) 25%, transparent 25%) 0 0/6px 6px,
+    linear-gradient(45deg, transparent 75%, rgba(206,224,248,0.6) 75%) 0 0/6px 6px,
+    linear-gradient(-45deg, transparent 75%, rgba(206,224,248,0.6) 75%) 0 0/6px 6px,
+    rgba(206,224,248,0.38);
+  border: 1px solid rgba(70,108,160,0.45);
+  color: rgba(56,94,148,0.85);
+  font-size: 5.5px; letter-spacing: 0.8px; text-align: center; line-height: 1.4;
+  box-shadow: 0 2px 6px rgba(8,18,40,0.18);
+  box-sizing: border-box; padding: 4px;
+}
